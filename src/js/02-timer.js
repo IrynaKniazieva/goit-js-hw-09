@@ -1,23 +1,30 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-const refs = {
-    startBtn: document.querySelector('button[data-start]'),
-    inputEl: document.querySelector('#datetime-picker'),
-    daysEl: document.querySelector('[data-days]'),
-    hoursEl: document.querySelector('[data-hours]'),
-    minutesEl: document.querySelector('[data-minutes]'),
-    secondsEl: document.querySelector('[data-seconds]'),
-};
+// const refs = {
+//     startBtn: document.querySelector('button[data-start]'),
+//     inputEl: document.querySelector('#datetime-picker'),
+//     daysEl: document.querySelector('[data-days]'),
+//     hoursEl: document.querySelector('[data-hours]'),
+//     minutesEl: document.querySelector('[data-minutes]'),
+//     secondsEl: document.querySelector('[data-seconds]'),
+// };
 
-const today = new Date();
+startBtn = document.querySelector('button[data-start]');
+inputEl = document.querySelector('#datetime-picker');
+daysEl = document.querySelector('[data-days]');
+hoursEl = document.querySelector('[data-hours]');
+minutesEl = document.querySelector('[data-minutes]');
+secondsEl = document.querySelector('[data-seconds]');
+
+// const today = new Date();
 intervalId = null;
 let selectedTime = null;
 
 
-refs.startBtn.addEventListener('click', onStartBtnClick);
+startBtn.addEventListener('click', onStartBtnClick);
 
-refs.startBtn.disable = false;
+startBtn.disabled = true;
 
 // инициализация библиотеки на элементе
 const options = {
@@ -26,24 +33,24 @@ const options = {
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        if(selectedDates[0] < today) {
+        if(selectedDates[0] < Date.now()) {
             window.alert("Please choose a date in the future"); 
-            refs.startBtn.disable = true;
+            startBtn.disabled = true;
           }
       
-          if(selectedDates[0] > today) {
+          if(selectedDates[0] > Date.now()) {
             selectedTime = selectedDates[0];
-            refs.startBtn.disable = false;
+            startBtn.disabled = false;
           }
         //   console.log(selectedDates[0]);
         },
       };
       
-      flatpickr(refs.inputEl, options);
+      flatpickr(inputEl, options);
 
 // функция клика на кнопку старт
 function onStartBtnClick() {
-    refs.startBtn.disable = true;
+    startBtn.disabled = true;
     
   
     intervalId = setInterval(() => {
@@ -54,10 +61,10 @@ function onStartBtnClick() {
      const { days, hours, minutes, seconds } = convertMs(deltaTime);
      console.log(`${days}:${hours}:${minutes}:${seconds}`);
   
-      refs.daysEl.textContent = addLeadingZero(days);
-      refs.hoursEl.textContent = addLeadingZero(hours);
-      refs.minutesEl.textContent = addLeadingZero(minutes);
-      refs.secondsEl.textContent = addLeadingZero(seconds);
+      daysEl.textContent = addLeadingZero(days);
+      hoursEl.textContent = addLeadingZero(hours);
+      minutesEl.textContent = addLeadingZero(minutes);
+      secondsEl.textContent = addLeadingZero(seconds);
       
     }, 1000);
    };

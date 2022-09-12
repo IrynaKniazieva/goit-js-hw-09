@@ -17,14 +17,9 @@ img {
   max-width: 100%;
 }
 
-.datetime {
-  display: flex;
-  justify-content: center;
-}
 
-.datetime-button {
-  margin-left: 15px;
-}
+
+
 
 .timer {
   display: flex;

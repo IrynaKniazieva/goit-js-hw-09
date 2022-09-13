@@ -17,8 +17,8 @@ function onStartBtnClick() {
     stopBtn.disabled = false;
 
     timerId = setInterval(() => {
-     color = getRandomHexColor();
-     bodyEl.style.background = color;  
+    //  color = getRandomHexColor();
+     bodyEl.style.background = getRandomHexColor();  
     }, 1000);
 }
 

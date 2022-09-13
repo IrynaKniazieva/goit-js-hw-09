@@ -13,7 +13,7 @@ const refs = {
 };
 
 // const today = new Date();
-intervalId = null;
+let intervalId = null;
 let selectedTime = null;
 
 

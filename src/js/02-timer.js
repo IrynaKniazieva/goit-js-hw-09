@@ -2,21 +2,24 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from 'notiflix';
 
-startBtn = document.querySelector('button[data-start]');
-inputEl = document.querySelector('#datetime-picker');
-daysEl = document.querySelector('[data-days]');
-hoursEl = document.querySelector('[data-hours]');
-minutesEl = document.querySelector('[data-minutes]');
-secondsEl = document.querySelector('[data-seconds]');
+
+const refs = {
+  startBtn: document.querySelector('button[data-start]'),
+  inputEl: document.querySelector('#datetime-picker'),
+  days: document.querySelector('[data-days]'),
+  hours: document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
+};
 
 // const today = new Date();
 intervalId = null;
 let selectedTime = null;
 
 
-startBtn.addEventListener('click', onStartBtnClick);
+refs.startBtn.addEventListener('click', onStartBtnClick);
 
-startBtn.disabled = true;
+refs.startBtn.disabled = true;
 
 // инициализация библиотеки на элементе
 const options = {
@@ -28,22 +31,22 @@ const options = {
         if(selectedDates[0] < Date.now()) {
           Notiflix.Notify.failure (`❌ Please choose a date in the future`);
             // window.alert("Please choose a date in the future"); 
-            startBtn.disabled = true;
+            refs.startBtn.disabled = true;
           }
       
           if(selectedDates[0] > Date.now()) {
             selectedTime = selectedDates[0];
-            startBtn.disabled = false;
+            refs.startBtn.disabled = false;
           }
         //   console.log(selectedDates[0]);
         },
       };
       
-      flatpickr(inputEl, options);
+      flatpickr(refs.inputEl, options);
 
 // функция клика на кнопку старт
 function onStartBtnClick() {
-    startBtn.disabled = true;
+    refs.startBtn.disabled = true;
     
   
     intervalId = setInterval(() => {
@@ -54,10 +57,10 @@ function onStartBtnClick() {
      const { days, hours, minutes, seconds } = convertMs(deltaTime);
      console.log(`${days}:${hours}:${minutes}:${seconds}`);
   
-      daysEl.textContent = addLeadingZero(days);
-      hoursEl.textContent = addLeadingZero(hours);
-      minutesEl.textContent = addLeadingZero(minutes);
-      secondsEl.textContent = addLeadingZero(seconds);
+      refs.days.textContent = addLeadingZero(days);
+      refs.hours.textContent = addLeadingZero(hours);
+      refs.minutes.textContent = addLeadingZero(minutes);
+      refs.seconds.textContent = addLeadingZero(seconds);
       
     }, 1000);
    };
